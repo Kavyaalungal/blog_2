@@ -1,0 +1,67 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="myblog.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" type="text/css">
+</head>
+<body>
+
+    <div id="demo"> </div>
+    <form onsubmit="logout(event)">
+      <input type="submit" value="LOGOUT"></form>
+ 
+    <script>
+  let token = localStorage.getItem("token");
+ 
+      fetch("http://localhost:3000/api/get-blog", {
+          method: "get",
+          headers: {
+              authorization: `Bearer ${token}`
+          }
+      })
+      .then(res => res.json())
+      .then(data => {
+        
+        console.log(data.msg);
+        if(data.msg){
+          demo.innerHTML =data.msg
+          return;
+        }
+        data.forEach(item=>{
+          let content =
+              `<div class="blogs">
+              <div class="content"><p>${item.title}</p></div>
+              <div class="content"><p>${item.description}</p></div>
+                <div class="images"><img src="${item.file}" />
+                </div>
+                <hr>
+              </div>`;
+            document.getElementById("demo").innerHTML += content;
+
+
+
+
+        })
+      })
+      function logout(event) {
+        event.preventDefault();
+        localStorage.removeItem("token");
+        location.href="http://localhost:3000/home.html";
+        
+      }
+      if(!token){
+        location.href="http://localhost:3000/home.html";
+      }
+    
+ 
+      </script>
+</body>
+</html> 
+
+
+
+
+

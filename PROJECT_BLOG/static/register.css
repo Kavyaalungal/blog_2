@@ -1,0 +1,32 @@
+body{
+    padding-top: 300px;
+     /* background: url("/static/images/reg.jpg"); */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background: rgb(216, 209, 209);
+}
+
+
+.form-signup{
+    margin: 0 auto;
+    max-width: 400px;
+    background-color: white;
+    padding: 15px;
+}
+.form-signup h2{
+    text-align: center;
+}
+.btn1{
+    border: none;
+    outline: none;
+    height: 50px;
+    width: 100%;
+    background-color: black;
+    color: white;
+    border-radius: 4px;
+    font-weight: bold;
+
+}
+.btn1:hover{
+    background-color: rgb(116, 90, 90);
+}

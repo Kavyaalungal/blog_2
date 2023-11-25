@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog : Homepage</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="home.css">
+
+</head>
+<body>
+
+    <nav class="navbar">
+        <img src="images/logo.png" class="logo" alt="">
+        <ul class="links-container">
+            <li class="link-item"><a href="home.html" class="link">home</a></li>
+            <li class="link-item"><a href="login.html" class="link">Login</a></li>
+            <li class="link-item"><a href="register1.html" class="link">Sign Up</a></li>
+        </ul>
+    </nav>
+
+    <header class="header">
+        <div class="content">
+            <h1 class="heading">
+                <span class="small">welcome to the world of</span>
+                blog
+                <span class="no-fill">writing</span>
+            </h1>
+            <a href="login.html" class="btn">write a blog</a>
+        </div>
+    </header>
+
+    <!-- <section class="blog-section"></section>
+    
+    <script>
+      fetch("http://localhost:3000/api/get-file")
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          data.forEach((item) => {
+            console.log(item);
+            let content =
+            `<section class="blog-section">
+            <div class="blog-card">
+                <img src="${item.file}" class="blog-image" alt="uploaded image" />
+                <h1 class="blog-title">${item.title}</h1>
+                <p class="blog-description">${item.description}</p>
+                <a href="/" class="btn dark">Read</a>
+            </div>
+            </section>
+            `;
+            document.querySelector(".blog-section").innerHTML += content;
+          });
+        });
+    </script> -->
+
+    <div id="demo"></div>
+    <script>
+     
+      // fetch("http://localhost:3000/api/get-file")
+      //   .then((res) => res.json())
+      //   .then((data) => {
+        
+      //     console.log(data);
+      //     data.forEach((item) => {
+      //       console.log(item);
+      //       let content =
+      //         `<div><p>${item.title}</p><p>${item.description}</p><img src="${item.file}" /></div>`;
+      //       document.getElementById("demo").innerHTML += content;
+      //     });
+
+          
+      //   });
+
+
+
+ 
+ fetch("http://localhost:3000/api/get-file", {
+     method: "get",
+ })
+ .then(res => res.json())
+ .then(data => {
+   
+   console.log(data);
+   data.forEach(item=>{
+     let content =
+         `<div class="blogs">
+         <div class="content"><p>${item.title}</p></div>
+         <div class="content"><p>${item.description}</p></div>
+           <div class="images"><img src="${item.file}" />
+           </div>
+           <hr>
+         </div>`;
+       document.getElementById("demo").innerHTML += content;
+
+
+
+
+   })
+ })
+    </script>
+</body>
+</html>

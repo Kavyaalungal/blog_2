@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog : Editor</title>
+
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="blog.css">
+
+</head>
+
+<body>
+    <h1 id="name"></h1>
+ 
+    
+    <form onsubmit="uploadFile(event)">
+
+        <div class="blog">
+            <textarea type="text" class="title" placeholder="Blog title..." id="title" name="title"></textarea>
+            <textarea type="text" class="article" placeholder="Start writing here..." id="description" name="description"></textarea>
+            <input type="file"  id="file" name="file">
+        </div>
+
+        <div class="blog-options">
+            <input type="submit" value="Publish" class="btn dark publish-btn" id="publish-btn">
+           
+        <button ><a href="myblog.html"></a></button>
+            <a href="myblog.html" class="btn">My blogs</a>
+           
+
+        </div>
+     
+    </form>
+    <!-- <button type="button" class="btn btn-dark" >Dark</button> -->
+
+
+    <script>
+        let name = document.getElementById("name");
+          let token = localStorage.getItem("token");
+        function uploadFile(event) {
+            event.preventDefault();
+            let title= event.target[0].value;
+            let description = event.target[1].value;
+            let file = event.target[2].files[0];
+
+            convert(file)
+            .then(base64file => {
+                    console.log(base64file);
+                    fetch(`http://localhost:3000/api/add-blog`, {
+                            method: "post",
+                            headers: {
+                                authorization: `Bearer ${token}`,
+                                "Content-Type": "application/json"
+                            },
+                            body:JSON.stringify({
+                                title: title,
+                                description: description,
+                                file: base64file
+                            })
+                        })
+                        .then(res => res.text())
+                        .then(data => {
+                            alert(data);
+                        })
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
+
+        function convert(file) {
+            return new Promise((res, rej) => {
+                let fileReader = new FileReader();
+                fileReader.readAsDataURL(file);
+                fileReader.onload = () => {
+                    res(fileReader.result);
+                };
+                fileReader.onerror = (error) => {
+                    rej(error);
+                };
+            });
+        }
+        function profile() {
+            fetch("http://localhost:3000/api/profile", {
+                method: "get",
+                headers: {
+                    authorization: `Bearer ${token}`
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                name.innerHTML = `Welcome ${data.username}`
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        }
+        profile()
+        
+    </script>
+
+   
+</body>
+
+</html>
+
