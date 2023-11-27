@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="profile.css">
+</head>
+
+<body>
+    <nav class="navbar bg-light">
+        <a href="home.html"><button style="color:rgb(12, 12, 12);background-color:rgb(37, 109, 192); border: 0px; padding:10px ;border-radius: 10x;">LogOut</button></a>
+    </nav>
+    <h1>My Profile</h1>
+    <div id="profile-container"></div>
+    <script>
+        let token = localStorage.getItem("token");
+
+        fetch("http://localhost:3000/api/get-profile", {
+            method: "get",
+            headers: {
+                authorization: `Bearer ${token}`
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data.msg);
+            if (data.msg) {
+                demo.innerHTML = data.msg;
+                return;
+            }
+            data.forEach(item => {
+                let content =
+                    `<div class="card">
+                        <div class="images"><img src="${item.profile}" /></div>
+                        <div class="content">
+                            <p><strong>Name:</strong> ${item.username}</p>
+                            <p><strong>Email:</strong> ${item.email}</p>
+                        </div>
+                    </div>`;
+                document.getElementById("profile-container").innerHTML += content;
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -16,7 +16,7 @@ router.route("/get-blog").get(auth,rh.getBlog);
 router.route("/profile").get(auth,rh.profile);
 router.route("/add-blog").post(auth,rh.addBlog);
 router.route("/get-file").get(rh.getfile)
-
+router.route("/get-profile").get(auth,rh.getProfile);
 export default router;
 
 

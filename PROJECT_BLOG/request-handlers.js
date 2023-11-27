@@ -141,3 +141,20 @@ let userDetails = await userSchema.findOne({ _id: user.id }, { password: 0, _id:
         return res.status(500).send("error occured")
     }
 }
+
+export async function  getProfile(req,res){
+    try{
+        let {id}=req.user;
+        let result=await userSchema.find({_id:id});
+        console.log(result)
+        if(result.length > 0){
+            return res.status(200).send(result)
+
+        }
+        return res.status(200).send({msg:"Your Profile is loading..."})
+    }
+    catch(error){
+        console.log(error)
+        return res.status(500).send("Error occured")
+    }
+}
